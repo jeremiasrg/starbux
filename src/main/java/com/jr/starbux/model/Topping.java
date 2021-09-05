@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -39,8 +40,14 @@ public class Topping implements Serializable{
 	@Column(name = "price", nullable = false)
 	private Double price;
 
-	@Column(name = "is_active", columnDefinition = "bit default 0", nullable = false)
+	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean isActive;
+	private Boolean active;
+	
+	@PrePersist
+	void preInsert() {
+		if (this.active == null)
+			this.active = true;
+	}
 
 }

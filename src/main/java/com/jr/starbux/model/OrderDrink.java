@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -46,7 +44,7 @@ public class OrderDrink implements Serializable {
 	@JoinColumn(name = "drink_id")
 	private Drink drink;
 
-//	@JsonIgnore
+	@JsonIgnore
 	@Column(name = "drink_unit_price", nullable = false)
 	private Double drinkUnitPrice;
 	

@@ -24,18 +24,5 @@ public class OrderDrinkToppingId implements Serializable {
     @Column(name = "topping_id", nullable = false)
     private Integer toppingId;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(orderDrinkOrderId, toppingId, orderDrinkDrinkId);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        OrderDrinkToppingId entity = (OrderDrinkToppingId) o;
-        return Objects.equals(this.orderDrinkOrderId, entity.orderDrinkOrderId) &&
-                Objects.equals(this.toppingId, entity.toppingId) &&
-                Objects.equals(this.orderDrinkDrinkId, entity.orderDrinkDrinkId);
-    }
+   
 }

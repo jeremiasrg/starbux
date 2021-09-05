@@ -15,13 +15,8 @@ import lombok.NoArgsConstructor;
 
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-@Table(name = "order_drink_topping", indexes = {
-        @Index(name = "fk_OrderDrink_has_Topping_Topping1_idx", columnList = "topping_id"),
-        @Index(name = "fk_OrderDrink_has_Topping_OrderDrink1_idx", columnList = "order_drink_order_id, order_drink_drink_id")
-})
+@Table(name = "order_drink_topping")
 @Entity
 public class OrderDrinkTopping implements Serializable{
     /**
