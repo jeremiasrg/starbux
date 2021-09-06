@@ -23,6 +23,7 @@ public class OrderController implements BaseController<Order, Long> {
 		try {
 			return	service.save(object);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}

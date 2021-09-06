@@ -17,12 +17,15 @@ import lombok.Data;
 @Embeddable
 public class OrderDrinkToppingId implements Serializable {
     private static final long serialVersionUID = 8770512007649082166L;
+    
     @Column(name = "order_drink_order_id", nullable = false)
-    private Integer orderDrinkOrderId;
+    private Long orderDrinkOrderId;
+    
     @Column(name = "order_drink_drink_id", nullable = false)
-    private Integer orderDrinkDrinkId;
+    private Long orderDrinkDrinkId;
+    
     @Column(name = "topping_id", nullable = false)
-    private Integer toppingId;
+    private Long toppingId;
 
    
 }

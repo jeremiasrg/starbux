@@ -2,6 +2,7 @@ package com.jr.starbux.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Currency;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude="drinks")
+@EqualsAndHashCode(exclude="order")
 @Table(name = "sb_order")
 @Entity
 public class Order implements Serializable {
@@ -46,9 +47,12 @@ public class Order implements Serializable {
 
 	@Column(name = "customer_name", nullable = false, length = 100)
 	private String customerName;
+	
+	@Column(name = "discount", nullable = false, length = 100)
+	private double discount;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
-	Set<OrderDrink> drinks = new HashSet<OrderDrink>();
+	Set<OrderDrink> order = new HashSet<OrderDrink>();
 
 
 	@PrePersist
@@ -60,11 +64,12 @@ public class Order implements Serializable {
 	@Transient
     @JsonGetter(value = "total")
 	public Double getTotal() {
-		return this.getDrinks()
+		Currency c  = Currency.getInstance("EUR");
+		Double v1 = this.getOrder().stream().map(v -> v.getTotalToppings()).reduce(0.0, (a, b) -> a + b);
+		Double v2 = this.getOrder()
 				.stream()
 				.map(v -> v.getDrinkUnitPrice() * v.getQuantity())
 				.reduce(0.0, (a, b) -> a + b);
-
+		return (v1+v2);
 	}
-
 }
