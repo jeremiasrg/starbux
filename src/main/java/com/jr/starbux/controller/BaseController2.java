@@ -19,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.jr.starbux.model.CommunField;
 import com.jr.starbux.service.BaseService;
 
-public abstract class BaseController<T extends CommunField, ID, R extends JpaRepository<T, ID>, S extends BaseService > {
+public abstract class BaseController2<T extends CommunField, ID, R extends JpaRepository<T, ID>, S extends BaseService > {
 
 	@Autowired
 	private S service;

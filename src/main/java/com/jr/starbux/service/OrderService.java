@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jr.starbux.math.Discount;
 import com.jr.starbux.model.Drink;
 import com.jr.starbux.model.Order;
 import com.jr.starbux.model.OrderDrink;
-import com.jr.starbux.model.OrderDrinkId;
 import com.jr.starbux.model.OrderDrinkTopping;
 import com.jr.starbux.model.Topping;
 import com.jr.starbux.repository.OrderRepository;
-import com.jr.starbux.utilities.Discount;
 
 @Service
 public class OrderService extends BaseService<Order, Long, OrderRepository> {
@@ -27,8 +26,6 @@ public class OrderService extends BaseService<Order, Long, OrderRepository> {
 	public Order save(Order object) throws Exception {
 		Order o = new Order();
 		o.setCustomerName(object.getCustomerName());
-		
-		System.out.println(">>>>>>>>>> " + object.getOrder().size());
 
 		super.repository.save(o);
 
@@ -38,13 +35,11 @@ public class OrderService extends BaseService<Order, Long, OrderRepository> {
 		for (OrderDrink od : object.getOrder()) {
 
 			// Create orderDrink
-			OrderDrinkId odi = new OrderDrinkId();
 			Drink drink = dService.find(od.getDrink().getId()); // TODO
 			od.setDrink(drink);
 			od.setDrinkUnitPrice(od.getDrink().getPrice());
-			odi.setDrinkId(od.getDrink().getId());
-			odi.setOrderId(o.getId());
-			od.setId(odi);
+			od.setDrinkId(od.getDrink().getId());
+			od.setOrderId(o.getId());
 
 			// Create orderDrinkTopping
 			for (OrderDrinkTopping t : od.getToppings()) {

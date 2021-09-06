@@ -2,9 +2,8 @@ package com.jr.starbux.model;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Currency;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude="order")
 @Table(name = "sb_order")
 @Entity
-public class Order implements Serializable {
+public class Order extends CommunField  implements Serializable {
 	/**
 	 * 
 	 */
@@ -52,7 +51,7 @@ public class Order implements Serializable {
 	private double discount;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
-	Set<OrderDrink> order = new HashSet<OrderDrink>();
+	List<OrderDrink> order = new ArrayList<OrderDrink>();
 
 
 	@PrePersist
@@ -64,11 +63,10 @@ public class Order implements Serializable {
 	@Transient
     @JsonGetter(value = "total")
 	public Double getTotal() {
-		Currency c  = Currency.getInstance("EUR");
 		Double v1 = this.getOrder().stream().map(v -> v.getTotalToppings()).reduce(0.0, (a, b) -> a + b);
 		Double v2 = this.getOrder()
 				.stream()
-				.map(v -> v.getDrinkUnitPrice() * v.getQuantity())
+				.map(v -> v.getDrinkUnitPrice())
 				.reduce(0.0, (a, b) -> a + b);
 		return (v1+v2);
 	}

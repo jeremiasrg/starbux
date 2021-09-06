@@ -13,4 +13,7 @@ spring:  application:    name: starbux
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
-              
+  flyway:
+    url: jdbc:mysql://localhost:3306/starbux?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    user: root
+    baseline-on-migrate: true      

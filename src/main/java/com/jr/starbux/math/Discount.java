@@ -1,4 +1,4 @@
-package com.jr.starbux.utilities;
+package com.jr.starbux.math;
 
 import com.jr.starbux.model.Order;
 import com.jr.starbux.model.OrderDrink;
@@ -19,7 +19,6 @@ public class Discount {
 	}
 	
 	public  double calcDiscount(Order o) {
-		System.out.println(o.getTotal());
 		Double disc1 = null;
 		Double disc2 = null;
 		
@@ -29,9 +28,6 @@ public class Discount {
 		if(o.getOrder().size() >= 3) {
 			disc2 = findLowestAmount(o);
 		}
-		
-		System.out.println(disc1);
-		System.out.println(disc2);
 		
 		if(disc1 != null && disc2 != null) {
 			return disc1 < disc2 ? disc1 : disc2;

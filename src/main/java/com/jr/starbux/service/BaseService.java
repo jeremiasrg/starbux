@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import com.jr.starbux.model.CommunField;
+
 @Service
-public abstract class BaseService<T, ID, R extends JpaRepository<T, ID>> {
+public abstract class BaseService<T extends CommunField, ID, R extends JpaRepository<T, ID>> {
 
 	@Autowired
 	protected R repository;
@@ -42,7 +44,13 @@ public abstract class BaseService<T, ID, R extends JpaRepository<T, ID>> {
 		return entity;
 	}
 	
-	public void delete(ID id) throws Exception  {
+	
+	public void delete(ID id) throws Exception {
+		T entity = repository.findById(id)
+				.orElseThrow(() -> new Exception("Drink not found"));
+
+		entity.setActive(false);
+		repository.save(entity);
 	}
 	
 }

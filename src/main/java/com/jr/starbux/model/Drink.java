@@ -1,8 +1,8 @@
 package com.jr.starbux.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,10 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,10 +26,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude="orders")
+@EqualsAndHashCode(exclude = "orders")
 @Table(name = "drink")
 @Entity
-public class Drink implements Serializable {
+public class Drink extends CommunField implements Serializable {
 	/**
 	 * 
 	 */
@@ -49,19 +46,8 @@ public class Drink implements Serializable {
 	@Column(name = "price", nullable = false)
 	private Double price;
 
-	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private Boolean active;
-	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drink", cascade = CascadeType.ALL)
-	Set<OrderDrink> orders = new HashSet<OrderDrink>();
-
-
-	@PrePersist
-	void preInsert() {
-		if (this.active == null)
-			this.active = true;
-	}
+	List<OrderDrink> orders = new ArrayList<OrderDrink>();
 
 }

@@ -1,14 +1,16 @@
 package com.jr.starbux.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -32,15 +34,26 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude="toppings")
 @Table(name = "order_drink")
 @Entity
-public class OrderDrink implements Serializable {
+public class OrderDrink extends CommunField  implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	@Id
 	@JsonIgnore
-	@EmbeddedId
-	private OrderDrinkId id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	private Long id;
+	
+	@JsonIgnore
+	@Column(name = "order_id", nullable = false)
+	private Long orderId;
+	
+	@JsonIgnore
+	@Column(name = "drink_id", nullable = false)
+	private Long drinkId;
 
 	@JsonIgnore
 	@ManyToOne
@@ -54,14 +67,12 @@ public class OrderDrink implements Serializable {
 	private Drink drink;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orderDrink", cascade = CascadeType.ALL)
-	Set<OrderDrinkTopping> toppings = new HashSet<OrderDrinkTopping>();
+	List<OrderDrinkTopping> toppings = new ArrayList<OrderDrinkTopping>();
 
 	@JsonIgnore
 	@Column(name = "drink_unit_price", nullable = false)
 	private Double drinkUnitPrice;
 	
-	@Column(name = "quantity", nullable = false)
-	private Integer quantity;
 	
 	@Transient
 	@JsonIgnore
@@ -69,7 +80,7 @@ public class OrderDrink implements Serializable {
 	public Double getTotalToppings() {
 		return this.getToppings()
 				.stream()
-				.map(v -> v.getToppingUnitPrice() * v.getQuantity())
+				.map(v -> v.getToppingUnitPrice())
 				.reduce(0.0, (a, b) -> a + b);
 	}
 
