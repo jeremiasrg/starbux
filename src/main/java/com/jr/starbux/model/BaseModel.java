@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
 
 import org.hibernate.annotations.Type;
@@ -11,7 +13,8 @@ import org.hibernate.annotations.Type;
 import lombok.Data;
 
 @Data
-public abstract class CommunField  implements Serializable{
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class BaseModel  implements Serializable{
 	
 	/**
 	 * 
@@ -21,11 +24,5 @@ public abstract class CommunField  implements Serializable{
 	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	protected Boolean active;
-	
-	@PrePersist
-	void preInsert() {
-		if (this.active == null)
-			this.active = true;
-	}
 
 }

@@ -12,7 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,7 +32,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude = "orders")
 @Table(name = "drink")
 @Entity
-public class Drink extends CommunField implements Serializable {
+public class Drink extends BaseModel implements Serializable {
 	/**
 	 * 
 	 */
@@ -45,9 +48,20 @@ public class Drink extends CommunField implements Serializable {
 
 	@Column(name = "price", nullable = false)
 	private Double price;
+	
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drink", cascade = CascadeType.ALL)
 	List<OrderDrink> orders = new ArrayList<OrderDrink>();
+	
+	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private Boolean active;
+	
+	@PrePersist
+	void preInsert() {
+		if (this.active == null)
+			this.active = true;
+	}
 
 }

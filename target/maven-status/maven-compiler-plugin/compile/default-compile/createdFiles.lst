@@ -10,7 +10,6 @@ com\jr\starbux\service\ToppingService.class
 com\jr\starbux\repository\OrderDrinkToppingRepository.class
 com\jr\starbux\service\OrderService.class
 com\jr\starbux\StarbuxApplication.class
-com\jr\starbux\model\CommunField.class
 com\jr\starbux\model\OrderDrink$OrderDrinkBuilder.class
 com\jr\starbux\repository\DrinkRepository.class
 com\jr\starbux\service\DrinkService.class

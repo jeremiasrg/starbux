@@ -17,6 +17,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +32,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude="order")
 @Table(name = "sb_order")
 @Entity
-public class Order extends CommunField  implements Serializable {
+public class Order extends BaseModel  implements Serializable {
 	/**
 	 * 
 	 */
@@ -53,11 +55,18 @@ public class Order extends CommunField  implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
 	List<OrderDrink> order = new ArrayList<OrderDrink>();
 
+	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	protected Boolean active;
+	
 
 	@PrePersist
 	private void prePersist() {
 		if (this.dateTime == null)
 			this.dateTime = Instant.now();
+		if (this.active == null)
+			this.active = true;
+	
 	}
 
 	@Transient

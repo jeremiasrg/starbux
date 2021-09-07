@@ -10,7 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "order_drink_topping")
 @NoArgsConstructor
 @Entity
-public class OrderDrinkTopping  extends CommunField  implements Serializable {
+public class OrderDrinkTopping  extends BaseModel  implements Serializable {
 	/**
 	 * 
 	 */
@@ -59,6 +62,16 @@ public class OrderDrinkTopping  extends CommunField  implements Serializable {
 	@JsonIgnore
 	@Column(name = "topping_unit_price", nullable = false)
 	private Double toppingUnitPrice;
+	
+	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	protected Boolean active;
+	
+	@PrePersist
+	void preInsert() {
+		if (this.active == null)
+			this.active = true;
+	}
 
 
 }

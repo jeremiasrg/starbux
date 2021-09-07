@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.jr.starbux.model.CommunField;
+import com.jr.starbux.model.BaseModel;
 import com.jr.starbux.service.BaseService;
 
-public abstract class BaseController2<T extends CommunField, ID, R extends JpaRepository<T, ID>, S extends BaseService > {
+public abstract class BaseController2<T extends BaseModel, ID, R extends JpaRepository<T, ID>, S extends BaseService > {
 
 	@Autowired
 	private S service;

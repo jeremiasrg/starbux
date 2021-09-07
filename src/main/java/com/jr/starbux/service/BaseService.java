@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import com.jr.starbux.model.CommunField;
+import com.jr.starbux.model.BaseModel;
 
 @Service
-public abstract class BaseService<T extends CommunField, ID, R extends JpaRepository<T, ID>> {
+public abstract class BaseService<T extends BaseModel, ID, R extends JpaRepository<T, ID>> {
 
 	@Autowired
 	protected R repository;

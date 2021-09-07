@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "topping")
 @Entity
-public class Topping extends CommunField implements Serializable {
+public class Topping extends BaseModel implements Serializable {
 	/**
 	 * 
 	 */
@@ -37,5 +39,15 @@ public class Topping extends CommunField implements Serializable {
 
 	@Column(name = "price", nullable = false)
 	private Double price;
+	
+	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private Boolean active;
+	
+	@PrePersist
+	void preInsert() {
+		if (this.active == null)
+			this.active = true;
+	}
 
 }

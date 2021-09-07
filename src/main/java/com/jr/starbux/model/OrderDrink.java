@@ -15,8 +15,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,7 +37,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude="toppings")
 @Table(name = "order_drink")
 @Entity
-public class OrderDrink extends CommunField  implements Serializable {
+public class OrderDrink extends BaseModel  implements Serializable {
 	/**
 	 * 
 	 */
@@ -67,11 +70,21 @@ public class OrderDrink extends CommunField  implements Serializable {
 	private Drink drink;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orderDrink", cascade = CascadeType.ALL)
-	List<OrderDrinkTopping> toppings = new ArrayList<OrderDrinkTopping>();
+	private List<OrderDrinkTopping> toppings = new ArrayList<OrderDrinkTopping>();
 
 	@JsonIgnore
 	@Column(name = "drink_unit_price", nullable = false)
 	private Double drinkUnitPrice;
+	
+	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private Boolean active;
+	
+	@PrePersist
+	void preInsert() {
+		if (this.active == null)
+			this.active = true;
+	}
 	
 	
 	@Transient
