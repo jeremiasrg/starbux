@@ -22,7 +22,9 @@ public abstract class BaseService<T extends BaseModel, ID, R extends JpaReposito
 
 	public T save(T object) throws Exception{
 
-		return (T) repository.save(object);
+		T r = (T) repository.save(object);
+		repository.flush();
+		return r;
 	}
 
 	public void update(ID id, T entity) throws Exception {
@@ -49,7 +51,7 @@ public abstract class BaseService<T extends BaseModel, ID, R extends JpaReposito
 		T entity = repository.findById(id)
 				.orElseThrow(() -> new Exception("Drink not found"));
 
-		entity.setActive(false);
+//		entity.setActive(false);
 		repository.save(entity);
 	}
 	

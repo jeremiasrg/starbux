@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,28 +54,35 @@ public class Order extends BaseModel  implements Serializable {
 	private double discount;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
-	List<OrderDrink> order = new ArrayList<OrderDrink>();
+	private List<OrderDrink> order = new ArrayList<OrderDrink>();
 
 	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	protected Boolean active;
+	private Boolean active;
 	
 
 	@PrePersist
-	private void prePersist() {
+	 void preInsert() {
+		System.out.println(this.active);
 		if (this.dateTime == null)
 			this.dateTime = Instant.now();
 		if (this.active == null)
 			this.active = true;
+		
+		System.out.println(this.active);
 	
 	}
 
 	@Transient
     @JsonGetter(value = "total")
 	public Double getTotal() {
-		Double v1 = this.getOrder().stream().map(v -> v.getTotalToppings()).reduce(0.0, (a, b) -> a + b);
+		Double v1 = this.getOrder()
+				.stream()
+				.filter( v-> v.getTotalToppings() != null)
+				.map(v -> v.getTotalToppings()).reduce(0.0, (a, b) -> a + b);
 		Double v2 = this.getOrder()
 				.stream()
+				.filter( v-> v.getDrinkUnitPrice() != null)
 				.map(v -> v.getDrinkUnitPrice())
 				.reduce(0.0, (a, b) -> a + b);
 		return (v1+v2);

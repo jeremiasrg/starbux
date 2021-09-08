@@ -54,7 +54,7 @@ public class Drink extends BaseModel implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "drink", cascade = CascadeType.ALL)
 	List<OrderDrink> orders = new ArrayList<OrderDrink>();
 	
-	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
+	@Column(name = "active", columnDefinition = "bit default 0", nullable = true)
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private Boolean active;
 	

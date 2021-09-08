@@ -69,7 +69,7 @@ public class OrderDrink extends BaseModel  implements Serializable {
 	@JoinColumn(name = "drink_id")
 	private Drink drink;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orderDrink", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orderDrink", cascade = CascadeType.MERGE)
 	private List<OrderDrinkTopping> toppings = new ArrayList<OrderDrinkTopping>();
 
 	@JsonIgnore
@@ -93,6 +93,7 @@ public class OrderDrink extends BaseModel  implements Serializable {
 	public Double getTotalToppings() {
 		return this.getToppings()
 				.stream()
+				.filter( v-> v.getToppingUnitPrice() != null)
 				.map(v -> v.getToppingUnitPrice())
 				.reduce(0.0, (a, b) -> a + b);
 	}

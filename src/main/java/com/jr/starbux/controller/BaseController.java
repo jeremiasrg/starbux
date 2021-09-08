@@ -24,11 +24,14 @@ public abstract class BaseController<T extends BaseModel, ID, R extends JpaRepos
 	@Autowired
 	private S service;
 	
-	Logger logger = LoggerFactory.getLogger(BaseController2.class);
+	Logger logger = LoggerFactory.getLogger(BaseController.class);
+	
 	
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public T create(@RequestBody T object) {
+		logger.info("Method create called");
+		
 		try {
 			return (T) service.save(object);
 		} catch (Exception e) {
@@ -37,9 +40,10 @@ public abstract class BaseController<T extends BaseModel, ID, R extends JpaRepos
 		}
 	}
 
-	@PutMapping("{id}")
+	@PutMapping(value= "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void update(@PathVariable ID id, @RequestBody T entity) {
+		logger.info("Method update called");
 		try {
 			service.update(id, entity);
 		} catch (Exception e) {
@@ -51,12 +55,14 @@ public abstract class BaseController<T extends BaseModel, ID, R extends JpaRepos
 	@GetMapping()
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<T> findAll(){
+		logger.info("Method findAll called");
 		return service.findAll();
 	}
 
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public T find(@PathVariable("id") ID id) {
+		logger.info("Method find called");
 		T entity;
 		try {
 			entity =  (T) service.find(id);
@@ -70,6 +76,7 @@ public abstract class BaseController<T extends BaseModel, ID, R extends JpaRepos
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") ID id) {
+		logger.info("Method delete called");
 		try {
 			service.delete(id);
 		} catch (Exception e) {

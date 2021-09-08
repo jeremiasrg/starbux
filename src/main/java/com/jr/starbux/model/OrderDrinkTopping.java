@@ -47,6 +47,9 @@ public class OrderDrinkTopping  extends BaseModel  implements Serializable {
 	@JsonIgnore
 	@Column(name = "topping_id", nullable = false)
 	private Long toppingId;
+	
+	@Column(name = "order_drink_id", nullable = false)
+	private Long orderDrinkId;
 
 	@ManyToOne
 	@MapsId("id")
@@ -56,7 +59,7 @@ public class OrderDrinkTopping  extends BaseModel  implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@MapsId("id")
-	@JoinColumn(name = "drink_id", nullable = false)
+	@JoinColumn(name = "order_drink_id", nullable = false)
 	private OrderDrink orderDrink;
 
 	@JsonIgnore

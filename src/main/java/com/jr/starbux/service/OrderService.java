@@ -19,6 +19,12 @@ public class OrderService extends BaseService<Order, Long, OrderRepository> {
 	DrinkService dService;
 
 	@Autowired
+	OrderDrinkService odService;
+
+	@Autowired
+	OrderDrinkToppingService odtService;
+
+	@Autowired
 	ToppingService tService;
 
 	@Transactional
@@ -27,10 +33,11 @@ public class OrderService extends BaseService<Order, Long, OrderRepository> {
 		Order o = new Order();
 		o.setCustomerName(object.getCustomerName());
 
-		super.repository.save(o);
+		o = super.repository.save(o);
 
 		object.setId(o.getId());
 		object.setDateTime(o.getDateTime());
+		object.setActive(true);
 
 		for (OrderDrink od : object.getOrder()) {
 
@@ -40,27 +47,26 @@ public class OrderService extends BaseService<Order, Long, OrderRepository> {
 			od.setDrinkUnitPrice(od.getDrink().getPrice());
 			od.setDrinkId(od.getDrink().getId());
 			od.setOrderId(o.getId());
+			od = odService.save(od);
 
 			// Create orderDrinkTopping
 			for (OrderDrinkTopping t : od.getToppings()) {
-				OrderDrinkTopping odt = new OrderDrinkTopping();
+
+				Topping topping = tService.find(t.getTopping().getId());
 				t.setDrinkId(od.getDrink().getId());
+				t.setOrderDrinkId(od.getId());
 				t.setOrderId(o.getId());
 				t.setToppingId(t.getTopping().getId());
-				Topping topping = tService.find(t.getTopping().getId());
 				t.setToppingUnitPrice(topping.getPrice());
-				t.getTopping().setName(topping.getName());
-				t.getTopping().setPrice(topping.getPrice());
-				t.getTopping().setActive(topping.getActive());
+				t.setActive(true);
+				t.setTopping(topping);
+				t = odtService.save(t);
 			}
-		}
 
+		}
 		double discount = Discount.getInstance().calcDiscount(object);
 		object.setDiscount(discount);
-		// Order drink Service
 		super.repository.save(object);
-
 		return object;
 	}
-
 }
