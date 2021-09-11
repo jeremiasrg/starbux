@@ -21,12 +21,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "drink")
 @Entity
-public class Drink extends BaseModel implements Serializable {
+public class Drink extends BaseEntity implements Serializable {
 	
 	
 	public Drink(Long id, String name, Double price) {
 		super();
-		this.id = id;
+		super.setId(id);
 		this.name = name;
 		this.price = price;
 	}
@@ -34,26 +34,11 @@ public class Drink extends BaseModel implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Long id;
 
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
 	@Column(name = "price", nullable = false)
 	private Double price;
-
-
-	@Column(name = "active", columnDefinition = "bit default 0")
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private Boolean active;
-	
-	@PrePersist
-	void preInsert() {
-		if (this.active == null)
-			this.active = true;
-	}
 
 }

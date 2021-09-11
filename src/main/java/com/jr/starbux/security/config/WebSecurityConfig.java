@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/topping/**").permitAll()
 				.antMatchers("/order/**").permitAll()
 				.antMatchers("/client/**").permitAll()
+				.antMatchers("/admin/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

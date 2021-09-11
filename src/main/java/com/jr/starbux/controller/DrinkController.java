@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jr.starbux.entity.Drink;
+import com.jr.starbux.request.DrinkRequest;
+import com.jr.starbux.response.DrinkResponse;
 import com.jr.starbux.service.DrinkService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,19 +17,22 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Drink service")
 @RestController
 @RequestMapping("/drink")
-public class DrinkController extends BaseViewController<Drink, Long, DrinkService> {
+public class DrinkController extends BaseViewController<Drink, Long, DrinkService, DrinkRequest, DrinkResponse> {
 
+	protected DrinkController() {
+		super(Drink.class, DrinkResponse.class);
+	}
 
 	@Operation(summary = "Lists all drinks")
 	@Override
-	public List findAll() {
+	public List<DrinkResponse> findAll() {
 		return super.findAll();
 	}
 
 	@Operation(summary = "Finds a specific drink by Id")
 	@Override
-	public Drink find(@PathVariable Long id) {
+	public DrinkResponse find(@PathVariable Long id) {
 		return super.find(id);
-	}	
+	}
 
 }

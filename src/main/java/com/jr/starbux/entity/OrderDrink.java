@@ -31,37 +31,25 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude="toppings")
+@EqualsAndHashCode(exclude = "toppings")
 @Table(name = "order_drink")
 @Entity
-public class OrderDrink extends BaseModel  implements Serializable {
-	
-	
+public class OrderDrink extends BaseEntity implements Serializable {
+
 	public OrderDrink(Long id, Long orderId, Long drinkId, List<OrderDrinkTopping> toppings) {
 		super();
-		this.id = id;
+		super.setId(id);
 		this.orderId = orderId;
 		this.drinkId = drinkId;
 		this.toppings = toppings;
 	}
 
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	
-	@Id
-	@JsonIgnore
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Long id;
-	
 	@JsonIgnore
 	@Column(name = "order_id", nullable = false)
 	private Long orderId;
-	
+
 	@JsonIgnore
 	@Column(name = "drink_id", nullable = false)
 	private Long drinkId;
@@ -76,35 +64,20 @@ public class OrderDrink extends BaseModel  implements Serializable {
 	@MapsId("id")
 	@JoinColumn(name = "drink_id")
 	private Drink drink;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "orderDrink", cascade = CascadeType.MERGE)
 	private List<OrderDrinkTopping> toppings = new ArrayList<>();
 
 	@JsonIgnore
 	@Column(name = "drink_unit_price", nullable = false)
 	private Double drinkUnitPrice;
-	
-	@Column(name = "active", columnDefinition = "bit default 0", nullable = false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private Boolean active;
-	
-	@PrePersist
-	void preInsert() {
-		if (this.active == null)
-			this.active = true;
-	}
-	
-	
+
 	@Transient
 	@JsonIgnore
-    @JsonGetter(value = "totalToppings")
+	@JsonGetter(value = "totalToppings")
 	public Double getTotalToppings() {
-		return this.getToppings()
-				.stream()
-				.map(v -> v.getToppingUnitPrice())
-				.filter(Objects::nonNull)
-				.reduce(0.0, (a, b) -> a + b);
+		return this.getToppings().stream().map(v -> v.getToppingUnitPrice()).filter(Objects::nonNull).reduce(0.0,
+				(a, b) -> a + b);
 	}
-
 
 }

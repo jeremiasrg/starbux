@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jr.starbux.entity.Topping;
+import com.jr.starbux.request.ToppingRequest;
+import com.jr.starbux.response.ToppingResponse;
 import com.jr.starbux.service.ToppingService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,17 +17,22 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Topping service")
 @RestController
 @RequestMapping("/topping")
-public class ToppingController extends BaseViewController<Topping, Long, ToppingService> {
+public class ToppingController
+		extends BaseViewController<Topping, Long, ToppingService, ToppingRequest, ToppingResponse> {
+
+	protected ToppingController() {
+		super(Topping.class, ToppingResponse.class);
+	}
 
 	@Operation(summary = "Lists all toppings")
 	@Override
-	public List findAll() {
+	public List<ToppingResponse> findAll() {
 		return super.findAll();
 	}
 
 	@Operation(summary = "Finds a specific topping by Id")
 	@Override
-	public Topping find(@PathVariable Long id) {
+	public ToppingResponse find(@PathVariable Long id) {
 		return super.find(id);
 	}
 

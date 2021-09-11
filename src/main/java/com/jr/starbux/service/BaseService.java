@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import com.jr.starbux.entity.BaseModel;
+import com.jr.starbux.entity.BaseEntity;
+import com.jr.starbux.generic.Generic;
 
 @Service
-public abstract class BaseService<T extends BaseModel, I, R extends JpaRepository<T, I>> {
+public abstract class BaseService<T extends BaseEntity, I, R extends JpaRepository<T, I>> {
 
 	@Autowired
 	protected R repository;

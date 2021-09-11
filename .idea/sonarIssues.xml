@@ -38,6 +38,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/BaseEntity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/BaseModel.java">
           <value>
             <set />
@@ -69,6 +74,36 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/Topping.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/request/ClientRequest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/request/DrinkRequest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/request/OrderDrinkRequest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/request/OrderDrinkToppingRequest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/request/OrderRequest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/request/ToppingRequest.java">
           <value>
             <set />
           </value>

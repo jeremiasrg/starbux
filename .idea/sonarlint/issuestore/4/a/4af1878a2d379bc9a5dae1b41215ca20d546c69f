@@ -1,5 +1,9 @@
 
-n
-java:S2139"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
-n
-java:S21392"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+J
+java:S3740:"/Provide the parametrized type for this generic.(È¥Š™şÿÿÿÿ
+?
+java:S2326"RES is not used in the class.(‹ØÙšúÿÿÿÿ8µÌ«½/
+j	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(‹ØÙšúÿÿÿÿ8í¥«½/
+j	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(‹ØÙšúÿÿÿÿ8µÌ«½/
+P
+java:S18540":Remove this useless assignment to local variable "entity".(ÈÖÌ©

@@ -83,7 +83,7 @@ public class AdminController {
 	@Operation(summary = "Creates a new drink")
 	@PostMapping("/drink")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public Drink createDrink(@RequestBody Drink object) {
 		log.info("Method create called");
 

@@ -36,16 +36,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(exclude = "order")
 @Table(name = "sb_order")
 @Entity
-public class Order extends BaseModel implements Serializable {
+public class Order extends BaseEntity implements Serializable {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     @Column(name = "date_time", nullable = false)
     private Instant dateTime;
@@ -67,18 +62,11 @@ public class Order extends BaseModel implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDrink> order = new ArrayList<>();
 
-    @Column(name = "active", columnDefinition = "bit default 0", nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean active;
-
-
     @PrePersist
     void preInsert() {
         if (this.dateTime == null)
             this.dateTime = Instant.now();
-        if (this.active == null)
-            this.active = true;
-
+       
 
     }
 
