@@ -1,11 +1,14 @@
 server:
   port: 8100
+  error:
+    include-message: ALWAYS
 spring:  application:    name: starbux
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/starbux?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: root
-  jackson:    serialization:
+  jackson:
+    default-property-inclusion: NON_NULL    serialization:
       fail-on-empty-beans: false
   jpa:
     hibernate:      ddl-auto: update
@@ -16,3 +19,8 @@ spring:  application:    name: starbux
   flyway:
     url: jdbc:mysql://localhost:3306/starbux?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
     user: root
+jwt:
+  secret: T*)I&*&*$@%()sZd!fS$@!
+  # Minutes expiration  
+  expiration: 30
+

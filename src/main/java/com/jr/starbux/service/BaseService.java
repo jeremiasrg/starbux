@@ -1,7 +1,5 @@
 package com.jr.starbux.service;
 
-
-
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -9,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import com.jr.starbux.model.BaseModel;
+import com.jr.starbux.entity.BaseModel;
 
 @Service
-public abstract class BaseService<T extends BaseModel, ID, R extends JpaRepository<T, ID>> {
+public abstract class BaseService<T extends BaseModel, I, R extends JpaRepository<T, I>> {
 
 	@Autowired
 	protected R repository;
@@ -20,39 +18,33 @@ public abstract class BaseService<T extends BaseModel, ID, R extends JpaReposito
 	@Autowired
 	protected ModelMapper modelMapper;
 
-	public T save(T object) throws Exception{
+	public T save(T object) throws Exception {
 
-		T r = (T) repository.save(object);
+		T r = repository.save(object);
 		repository.flush();
 		return r;
 	}
 
-	public void update(ID id, T entity) throws Exception {
-		T objectDb = repository.findById(id)
-				.orElseThrow(() -> new Exception(entity.getClass() + " not found"));
+	public void update(I id, T entity) throws Exception {
+		T objectDb = repository.findById(id).orElseThrow(() -> new Exception(entity.getClass() + " not found"));
 
 		modelMapper.map(entity, objectDb);
 		repository.save(objectDb);
 	}
-	
-	public List<T> findAll() {
-		List<T> rt = repository.findAll();
-		return rt;
-	}
-	
-	public T find(ID id) throws Exception {
-		T entity = repository.findById(id)
-				.orElseThrow(() -> new Exception( "Object not found"));
-		return entity;
-	}
-	
-	
-	public void delete(ID id) throws Exception {
-		T entity = repository.findById(id)
-				.orElseThrow(() -> new Exception("Drink not found"));
 
-//		entity.setActive(false);
+	public List<T> findAll() {
+		return repository.findAll();
+	}
+
+	public T find(I id) throws Exception {
+		return repository.findById(id).orElseThrow(() -> new Exception("Object not found"));
+		
+	}
+
+	public void delete(I id) throws Exception {
+		T entity = repository.findById(id).orElseThrow(() -> new Exception("Drink not found"));
+
 		repository.save(entity);
 	}
-	
+
 }

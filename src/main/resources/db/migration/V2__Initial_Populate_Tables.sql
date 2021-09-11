@@ -18,3 +18,6 @@ INSERT INTO `topping` (`active`, `name`, `price`) VALUES
 INSERT INTO `topping` (`active`, `name`, `price`) VALUES
 (b'1', 'Lemon', 2.0);
 
+
+INSERT INTO `user` (`id`, `email`, `password`, `role`) VALUES
+(1, 'admin@admin.com', '$2a$10$0vX71kWJ6KSSzqi04Ie7rOD8.dBrKaLSbSjTrKexJlUJ9MbmqyyU6', 'ROLE_ADMINISTRATOR');

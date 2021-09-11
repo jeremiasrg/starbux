@@ -1,0 +1,14 @@
+
+X	java:S125"<This block of commented-out lines of code should be removed.(Œºøñ8¸ÿıŠ½/
+]	java:S125,"<This block of commented-out lines of code should be removed.(€›Ç¢üÿÿÿÿ8äºüŠ½/
+n
+java:S2139E"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾
+X	java:S125M"<This block of commented-out lines of code should be removed.(ñ¡Ú±8éœıŠ½/
+t
+java:S1128	"RRemove this unused import 'org.springframework.web.bind.annotation.DeleteMapping'.(­ìÎªşÿÿÿÿ8êœıŠ½/
+r
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.PostMapping'.(äƒà°ùÿÿÿÿ8¸ÿıŠ½/
+q
+java:S1128"ORemove this unused import 'org.springframework.web.bind.annotation.PutMapping'.(›¥÷ˆûÿÿÿÿ8èºüŠ½/
+r
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.RequestBody'.(â­½Àıÿÿÿÿ8¸ÿıŠ½/

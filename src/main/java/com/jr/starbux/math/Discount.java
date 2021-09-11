@@ -1,7 +1,7 @@
 package com.jr.starbux.math;
 
-import com.jr.starbux.model.Order;
-import com.jr.starbux.model.OrderDrink;
+import com.jr.starbux.entity.Order;
+import com.jr.starbux.entity.OrderDrink;
 
 public class Discount {
 
