@@ -3,6 +3,7 @@ package com.jr.starbux.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,8 +25,6 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -102,8 +101,8 @@ public class OrderDrink extends BaseModel  implements Serializable {
 	public Double getTotalToppings() {
 		return this.getToppings()
 				.stream()
-				.filter( v-> v.getToppingUnitPrice() != null)
 				.map(v -> v.getToppingUnitPrice())
+				.filter(Objects::nonNull)
 				.reduce(0.0, (a, b) -> a + b);
 	}
 

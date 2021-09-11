@@ -13,6 +13,7 @@ import javax.persistence.MapsId;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table(name = "order_drink_topping")
 @NoArgsConstructor

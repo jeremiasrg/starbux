@@ -16,7 +16,7 @@ public class ToppingServiceTest {
 	private ToppingService service;
 
 	@Test
-	public void shouldReturnMoreThanOneTopping_WhenFindAllToppings() throws Exception {
+	public void shouldReturnMoreThanOneTopping_WhenFindAllToppings() {
 		List<Topping> toppings = service.findAll();
 		Assertions.assertTrue(toppings.size() > 1);
 	}
@@ -46,7 +46,7 @@ public class ToppingServiceTest {
 		topping.setName("Topping unit test");
 		topping.setPrice(100.00);
 		Topping rt = service.save(topping);
-		Assertions.assertTrue(rt.getId() != null);
+        Assertions.assertNotNull(rt.getId());
 	}
 	
 	@Test

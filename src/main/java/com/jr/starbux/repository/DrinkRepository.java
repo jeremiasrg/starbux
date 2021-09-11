@@ -10,6 +10,6 @@ import com.jr.starbux.entity.Drink;
 public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
 	@Query("select d from Drink d where d.active = true")
-	public List<Drink> findAllActivedDrinks();
+    List<Drink> findAllActivedDrinks();
 
 }

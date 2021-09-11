@@ -3,7 +3,6 @@ package com.jr.starbux.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +20,7 @@ public class DrinkController extends BaseViewController<Drink, Long, DrinkServic
 
 	@Operation(summary = "Lists all drinks")
 	@Override
-	public List<Drink> findAll() {
+	public List findAll() {
 		return super.findAll();
 	}
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -86,13 +87,15 @@ public class Order extends BaseModel implements Serializable {
     public Double getTotal() {
         Double v1 = this.getOrder()
                 .stream()
-                .filter(v -> v.getTotalToppings() != null)
-                .map(v -> v.getTotalToppings()).reduce(0.0, (a, b) -> a + b);
+                .map(v -> v.getTotalToppings())
+                .filter(Objects::nonNull).reduce(0.0, (a, b) -> a + b);
+
         Double v2 = this.getOrder()
                 .stream()
-                .filter(v -> v.getDrinkUnitPrice() != null)
                 .map(v -> v.getDrinkUnitPrice())
+                .filter(Objects::nonNull)
                 .reduce(0.0, (a, b) -> a + b);
+
         return (v1 + v2);
     }
 }

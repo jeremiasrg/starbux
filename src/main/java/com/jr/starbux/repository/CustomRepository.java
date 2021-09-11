@@ -36,12 +36,14 @@ public class CustomRepository {
 
     public List<TotalAmountCustomer> totalAmountCustomer(String customerName) {
 
-        String query = "SELECT o.customerName, sum(od.drinkUnitPrice) + sum(odt.toppingUnitPrice) AS v2 "
-                + "FROM Order o " + "INNER JOIN  OrderDrink od ON o.id = od.orderId "
+        String query = "SELECT c.name, sum(od.drinkUnitPrice) + sum(odt.toppingUnitPrice) AS v2 "
+                + "FROM Order o " 
+                + "INNER JOIN  Client c ON c.id = od.clientId "
+                + "INNER JOIN  OrderDrink od ON o.id = od.orderId "
                 + "LEFT JOIN  OrderDrinkTopping odt ON odt.orderDrinkId = od.id "
                 + "LEFT JOIN  Topping t ON t.id = odt.toppingId "
-                + "WHERE o.customerName = :name "
-                + "GROUP BY o.customerName " + "ORDER BY 2 desc ";
+                + "WHERE c.name = :name "
+                + "GROUP BY c.name " + "ORDER BY 2 desc ";
 
         Query q = em.createQuery(query);
 

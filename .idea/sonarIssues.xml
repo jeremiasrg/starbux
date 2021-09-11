@@ -33,17 +33,57 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/controller/OrderController.java">
-          <value>
-            <set />
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/controller/ToppingController.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/service/AdminService.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/BaseModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/Client.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/Drink.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/Order.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/OrderDrink.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/OrderDrinkTopping.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/entity/Topping.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/security/enums/RoleEnum.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/security/jwt/JwtAuthenticationTokenFilter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/jr/starbux/security/service/UserService.java">
           <value>
             <set />
           </value>
@@ -53,12 +93,17 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/test/java/com/jr/starbux/repository/DrinkRepositoryTest.java">
+        <entry key="$PROJECT_DIR$/src/test/java/com/jr/starbux/StarbuxApplicationTests.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/jr/starbux/service/AdminServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/jr/starbux/service/DrinkServiceTest.java">
           <value>
             <set />
           </value>
@@ -79,11 +124,6 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/jr/starbux/test/resources/application.yml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/test/resources/application.yml">
           <value>
             <set />
           </value>

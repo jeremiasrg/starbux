@@ -17,7 +17,7 @@ public class DrinkServiceTest {
 	
 
 	@Test
-	public void shouldReturnMoreThanOneDrink_WhenFindAllDrinks() throws Exception {
+	public void shouldReturnMoreThanOneDrink_WhenFindAllDrinks() {
 		List<Drink> drinks = service.findAll();
 		Assertions.assertTrue(drinks.size() > 1);
 	}
@@ -47,14 +47,14 @@ public class DrinkServiceTest {
 		drink.setName("Drink unit test");
 		drink.setPrice(100.00);
 		Drink rt = service.save(drink);
-		Assertions.assertTrue(rt.getId() != null);
+        Assertions.assertNotNull(rt.getId());
 	}
 	
 	@Test
 	public void shouldDeleteDrink_WhenDeleteDrink() throws Exception{
 		service.delete(1L);
 		Drink rt = service.find(1L);
-		Assertions.assertTrue(rt.getActive() == false);
+        Assertions.assertEquals(false, (boolean) rt.getActive());
 		rt.setActive(true);
 		service.update(1L, rt);
 	}

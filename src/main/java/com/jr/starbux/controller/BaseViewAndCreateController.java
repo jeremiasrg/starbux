@@ -43,7 +43,7 @@ public abstract class BaseViewAndCreateController<T extends BaseModel, I, S exte
 
 	@GetMapping()
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<T> findAll(){
+	public List findAll(){
 		log.info("Method findAll called");
 		return service.findAll();
 	}

@@ -24,7 +24,7 @@ public abstract class BaseViewController<T extends BaseModel, I, S extends BaseS
 
 	@GetMapping()
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<T> findAll(){
+	public List findAll(){
 		log.info("Method findAll called");
 		return service.findAll();
 	}

@@ -17,12 +17,12 @@ public class AdminServiceTest {
     @Test
     public void shouldReturnReportMostUsedToppingsDrinks_WhenCallMostUsedToppingsDrinks(){
         List<MostUsedToppingsDrinks> rt = service.mostUsedToppingsDrinks();
-        Assertions.assertTrue(rt != null);
+        Assertions.assertNotNull(rt);
     }
 
     @Test
     public void shouldReturnTotalAmountCustomer_WhenTotalAmountCustomer(){
         List<TotalAmountCustomer> rt = service.totalAmountCustomer("test");
-        Assertions.assertTrue(rt != null);
+        Assertions.assertNotNull(rt);
     }
 }

@@ -62,12 +62,12 @@ public class OrderServiceTest {
 
 		// save
 		Order rt = service.save(order);
-		Assertions.assertTrue(rt.getId() != null);
+        Assertions.assertNotNull(rt.getId());
 	}
 
 	@Test
 	@org.junit.jupiter.api.Order(2)
-	public void shouldReturnMoreThanOneOrder_WhenFindAllOrders() throws Exception {
+	public void shouldReturnMoreThanOneOrder_WhenFindAllOrders() {
 		List<Order> orders = service.findAll();
 		Assertions.assertTrue(orders.size() >= 1);
 	}
