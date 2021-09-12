@@ -17,14 +17,14 @@ import com.jr.starbux.response.TotalAmountCustomer;
 	private AdminService service;
 
 	@Test
-	void shouldReturnReportMostUsedToppingsDrinks_WhenCallMostUsedToppingsDrinks() {
+	void shouldReturnReportMostUsedToppingsDrinks() {
 		List<MostUsedToppingsDrinks> rt = service.mostUsedToppingsDrinks();
 		Assertions.assertNotNull(rt);
 	}
 
 	@Test
-	void shouldReturnTotalAmountCustomer_WhenTotalAmountCustomer() {
-		List<TotalAmountCustomer> rt = service.totalAmountCustomer("test");
+	void shouldReturnTotalAmountCustomer() {
+		List<TotalAmountCustomer> rt = service.totalAmountCustomer();
 		Assertions.assertNotNull(rt);
 	}
 }

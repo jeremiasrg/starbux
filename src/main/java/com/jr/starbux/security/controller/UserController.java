@@ -34,6 +34,7 @@ import lombok.extern.log4j.Log4j2;
 public class UserController {
 
 	private final UserService userService;
+	
 	private final PasswordEncoder passwordEncoder;
 	
 	@Autowired

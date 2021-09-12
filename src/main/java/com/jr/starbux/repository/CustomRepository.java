@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jr.starbux.response.MostUsedToppingsDrinks;
@@ -14,12 +16,11 @@ import com.jr.starbux.response.TotalAmountCustomer;
 @Repository
 public class CustomRepository {
 
-    private final EntityManager em;
 
-    public CustomRepository(EntityManager em) {
-        super();
-        this.em = em;
-    }
+    @PersistenceContext
+    private EntityManager em;
+
+
 
     public List<MostUsedToppingsDrinks> mostUsedToppingsDrinks() {
         String query = "SELECT t.name AS topping, COUNT(od.id) AS total from Drink d "
@@ -34,20 +35,17 @@ public class CustomRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<TotalAmountCustomer> totalAmountCustomer(String customerName) {
+    public List<TotalAmountCustomer> totalAmountCustomer() {
 
-        String query = "SELECT c.name, sum(od.drinkUnitPrice) + sum(odt.toppingUnitPrice) AS v2 "
+        String query = "SELECT c.name, sum(od.drinkUnitPrice) + sum(odt.toppingUnitPrice) AS total "
                 + "FROM Order o " 
-                + "INNER JOIN  Client c ON c.id = od.clientId "
+                + "INNER JOIN  Client c ON c.id = o.clientId "
                 + "INNER JOIN  OrderDrink od ON o.id = od.orderId "
                 + "LEFT JOIN  OrderDrinkTopping odt ON odt.orderDrinkId = od.id "
                 + "LEFT JOIN  Topping t ON t.id = odt.toppingId "
-                + "WHERE c.name = :name "
                 + "GROUP BY c.name " + "ORDER BY 2 desc ";
 
         Query q = em.createQuery(query);
-
-        q.setParameter("name", customerName);
 
         List<Object[]> resultQuery = q.getResultList();
 

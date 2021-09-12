@@ -2,8 +2,6 @@ package com.jr.starbux.repository;
 
 import java.util.List;
 
-
-
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,9 +16,15 @@ class DrinkRepositoryTest {
 
 
     @Test
-     void shouldReturnMoreThanOneDrink_WhenFindAllDrinks()  {
+     void shouldReturnMoreThanOneActiveDrink()  {
         List<Drink> rt = repository.findAllActived();
         Assertions.assertTrue(rt.size() > 1);
+    }
+
+    @Test
+    void shouldReturnSpecificActiveDrink()  {
+        Drink drink = repository.findByIdActived(2L);
+        Assertions.assertTrue(drink.getId() != null);
     }
 
 

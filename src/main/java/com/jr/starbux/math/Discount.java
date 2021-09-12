@@ -23,7 +23,7 @@ public class Discount {
 		Double disc2 = null;
 		
 		if(o.getTotal() > 12) {
-			 disc1 = o.getTotal()/100*25;
+			 disc1 = (o.getTotal()/100)*25;
 		}
 		if(o.getOrder().size() >= 3) {
 			disc2 = findLowestAmount(o);

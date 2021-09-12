@@ -3,46 +3,49 @@ package com.jr.starbux.service;
 import java.util.List;
 
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;import org.springframework.beans.factory.annotation.Autowired;
+import com.jr.starbux.exceptions.ObjectNotFoundException;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jr.starbux.entity.Topping;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ToppingServiceTest {
 
 	@Autowired
 	private ToppingService service;
 
 	@Test
-	void shouldReturnMoreThanOneTopping_WhenFindAllToppings() {
+	@Order(1)
+	void shouldReturnMoreThanOneTopping() {
 		List<Topping> toppings = service.findAll();
 		Assertions.assertTrue(toppings.size() > 1);
 	}
 
 	@Test
-	void shouldReturnSpecificTopping_WhenFindTopping() throws Exception {
+	@Order(2)
+	void shouldReturnSpecificTopping() throws Exception {
 		Topping rt = service.find(1L);
 		Assertions.assertEquals("Milk", rt.getName());
 	}
 
 	@Test
-	void shouldUpdateSpecificTopping_WhenUpdateTopping() throws Exception {
+	@Order(3)
+	void shouldUpdateSpecificTopping() throws Exception {
 		Topping topping = service.find(1L);
 		String originalName = topping.getName();
 		topping.setName(originalName + "_test");
 		service.update(1L, topping);
 		Topping test = service.find(1L);
 		Assertions.assertEquals(test.getName(), "Milk" + "_test");
-		test.setName(originalName);
-		service.update(1L, test);
 	}
 
 	@Test
-	void shouldCreateTopping_WhenCreateTopping() throws Exception {
+	@Order(4)
+	void shouldCreateTopping() throws Exception {
 		Topping topping = new Topping();
-
 		topping.setName("Topping unit test");
 		topping.setPrice(100.00);
 		Topping rt = service.save(topping);
@@ -50,12 +53,10 @@ class ToppingServiceTest {
 	}
 
 	@Test
-	void shouldDeleteTopping_WhenDeleteTopping() throws Exception {
+	@Order(5)
+	void shouldDeleteTopping() throws Exception {
 		service.delete(1L);
-		Topping rt = service.find(1L);
-		Assertions.assertEquals(true, rt.getActive());
-		rt.setActive(true);
-		service.update(1L, rt);
+		Assertions.assertThrows(ObjectNotFoundException.class, () -> service.find(1L));
 	}
 
 }

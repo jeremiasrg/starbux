@@ -16,6 +16,7 @@ import com.jr.starbux.security.jwt.JwtAuthenticationTokenFilter;
 import com.jr.starbux.security.service.MyUserDetailsService;
 import com.jr.starbux.security.utils.JwtUtil;
 
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -33,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public PasswordEncoder passowordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(); 
 	}
 	
@@ -42,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-				.csrf().disable()
+//				.csrf().disable()
 				.authorizeRequests()
 				.antMatchers("/user/**").permitAll()
 				.antMatchers("/drink/**").permitAll()

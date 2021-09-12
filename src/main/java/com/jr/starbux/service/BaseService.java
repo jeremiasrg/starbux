@@ -46,7 +46,7 @@ public abstract class BaseService<E extends BaseEntity, I, R extends BaseReposit
 
 	public void delete(I id) throws ObjectNotFoundException {
 		E entity = repository.findById(id).orElseThrow(ObjectNotFoundException::new);
-
+		entity.setActive(false);
 		repository.save(entity);
 	}
 

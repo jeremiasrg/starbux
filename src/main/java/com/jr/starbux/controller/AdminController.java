@@ -48,14 +48,14 @@ public class AdminController {
 	@Autowired
 	private ToppingService tpService;
 
-	@GetMapping(path = "/totalAmountCustomer")
+	@GetMapping("/totalAmountCustomer")
 	@Operation(summary = "Total amount of the orders per customer.")
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public List<TotalAmountCustomer> totalAmountCustomer(String customerName) {
-		return service.totalAmountCustomer(customerName);
+		return service.totalAmountCustomer();
 	}
 
-	@GetMapping(path = "/mostUsedToppingsDrinks")
+	@GetMapping("/mostUsedToppingsDrinks")
 	@Operation(summary = "Most used toppings for drinks.")
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public List<MostUsedToppingsDrinks> mostUsedToppingsDrinks() {
