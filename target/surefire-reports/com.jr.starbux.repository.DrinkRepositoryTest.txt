@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.jr.starbux.repository.DrinkRepositoryTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.311 s - in com.jr.starbux.repository.DrinkRepositoryTest

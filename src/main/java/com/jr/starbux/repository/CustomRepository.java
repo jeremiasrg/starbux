@@ -17,7 +17,7 @@ import com.jr.starbux.response.TotalAmountCustomer;
 public class CustomRepository {
 
 
-    @PersistenceContext
+
     private EntityManager em;
 
 

@@ -14,7 +14,6 @@ com\jr\starbux\response\MostUsedToppingsDrinks.class
 com\jr\starbux\security\response\UserResponse.class
 com\jr\starbux\repository\CustomRepository.class
 com\jr\starbux\security\repository\UserRepository.class
-com\jr\starbux\service\AdminService$AdminServiceBuilder.class
 com\jr\starbux\service\OrderService.class
 com\jr\starbux\StarbuxApplication.class
 com\jr\starbux\repository\DrinkRepository.class
