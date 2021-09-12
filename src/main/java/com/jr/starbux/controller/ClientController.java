@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jr.starbux.entity.Client;
+import com.jr.starbux.exceptions.ObjectNotFoundException;
 import com.jr.starbux.request.ClientRequest;
 import com.jr.starbux.response.ClientResponse;
 import com.jr.starbux.service.ClientService;
@@ -24,12 +25,11 @@ public class ClientController
 
 	protected ClientController() {
 		super(Client.class, ClientResponse.class);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Operation(summary = "Creates a new client")
 	@Override
-	public ClientResponse create(@RequestBody ClientRequest object) {
+	public ClientResponse create(@RequestBody ClientRequest object) throws Exception {
 		return super.create(object);
 	}
 
@@ -43,7 +43,7 @@ public class ClientController
 	@Operation(summary = "Finds a specific client by Id")
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	@Override
-	public ClientResponse find(@PathVariable Long id) {
+	public ClientResponse find(@PathVariable Long id) throws ObjectNotFoundException {
 		return super.find(id);
 	}
 

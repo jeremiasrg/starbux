@@ -1,5 +1,6 @@
 package com.jr.starbux.service;
 
+import com.jr.starbux.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,11 +30,10 @@ public class OrderService extends BaseService<Order, Long, OrderRepository> {
 
     @Transactional
     @Override
-    public Order save(Order object) throws Exception {
+    public Order save(Order object) throws ObjectNotFoundException {
         Order o = new Order();
         o.setClientId(object.getClient().getId());
         o.setAddress(object.getAddress());
-        
         
         o = super.repository.save(o);
 
@@ -58,12 +58,9 @@ public class OrderService extends BaseService<Order, Long, OrderRepository> {
 
                 Topping topping = tService.find(t.getTopping().getId());
                 t.setDrinkId(od.getDrink().getId());
-                System.out.println("od.getDrink().getId() >>>>>>>> " + od.getDrink().getId());
                 t.setOrderDrinkId(od.getId());
-                System.out.println("od.getId() >>>>>>>> " + od.getId());
                 t.setOrderId(o.getId());
                 t.setToppingId(t.getTopping().getId());
-                System.out.println("t.getTopping().getId() >>>>>>>> " + t.getTopping().getId());
                 t.setToppingUnitPrice(topping.getPrice());
                 t.setActive(true);
                 t.setTopping(topping);

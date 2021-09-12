@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderRequest {
 
+	private Long id;
 	private ClientRequest client;
 	private String address;
-	private List<OrderDrinkRequest> drinks;
+	private List<OrderDrinkRequest> order;
 
 }

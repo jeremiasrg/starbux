@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jr.starbux.entity.Drink;
+import com.jr.starbux.exceptions.ObjectNotFoundException;
 import com.jr.starbux.request.DrinkRequest;
 import com.jr.starbux.response.DrinkResponse;
 import com.jr.starbux.service.DrinkService;
@@ -20,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class DrinkController extends BaseViewController<Drink, Long, DrinkService, DrinkRequest, DrinkResponse> {
 
 	protected DrinkController() {
-		super(Drink.class, DrinkResponse.class);
+		super(DrinkResponse.class);
 	}
 
 	@Operation(summary = "Lists all drinks")
@@ -31,7 +32,7 @@ public class DrinkController extends BaseViewController<Drink, Long, DrinkServic
 
 	@Operation(summary = "Finds a specific drink by Id")
 	@Override
-	public DrinkResponse find(@PathVariable Long id) {
+	public DrinkResponse find(@PathVariable Long id) throws ObjectNotFoundException {
 		return super.find(id);
 	}
 

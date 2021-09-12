@@ -20,7 +20,7 @@ import com.jr.starbux.security.request.UserJwtRequest;
 import com.jr.starbux.security.request.UserRequest;
 import com.jr.starbux.security.response.UserJwtResponse;
 import com.jr.starbux.security.response.UserResponse;
-import com.jr.starbux.security.service.UserDetailsService;
+import com.jr.starbux.security.service.MyUserDetailsService;
 import com.jr.starbux.security.service.UserService;
 import com.jr.starbux.security.utils.JwtUtil;
 
@@ -37,7 +37,7 @@ public class UserController {
 	private final PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private final UserDetailsService userDetailsService;
+	private final MyUserDetailsService userDetailsService;
 	
 	@Autowired
 	private JwtUtil jwtUtil;

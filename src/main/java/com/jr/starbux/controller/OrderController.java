@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jr.starbux.entity.Order;
+import com.jr.starbux.exceptions.ObjectNotFoundException;
 import com.jr.starbux.request.OrderRequest;
 import com.jr.starbux.response.OrderResponse;
 import com.jr.starbux.service.OrderService;
@@ -26,7 +27,7 @@ public class OrderController extends BaseViewAndCreateController<Order, Long, Or
 
 	@Operation(summary = "Creates a new order")
 	@Override
-	public OrderResponse create(@RequestBody OrderRequest object) {
+	public OrderResponse create(@RequestBody OrderRequest object) throws Exception {
 		return super.create(object);
 	}
 
@@ -38,7 +39,7 @@ public class OrderController extends BaseViewAndCreateController<Order, Long, Or
 
 	@Operation(summary = "Finds a specific order by Id")
 	@Override
-	public OrderResponse find(@PathVariable Long id) {
+	public OrderResponse find(@PathVariable Long id) throws ObjectNotFoundException {
 		return super.find(id);
 	}
 

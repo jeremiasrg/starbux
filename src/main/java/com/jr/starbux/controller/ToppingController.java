@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jr.starbux.entity.Topping;
+import com.jr.starbux.exceptions.ObjectNotFoundException;
 import com.jr.starbux.request.ToppingRequest;
 import com.jr.starbux.response.ToppingResponse;
 import com.jr.starbux.service.ToppingService;
@@ -21,7 +22,7 @@ public class ToppingController
 		extends BaseViewController<Topping, Long, ToppingService, ToppingRequest, ToppingResponse> {
 
 	protected ToppingController() {
-		super(Topping.class, ToppingResponse.class);
+		super(ToppingResponse.class);
 	}
 
 	@Operation(summary = "Lists all toppings")
@@ -32,7 +33,7 @@ public class ToppingController
 
 	@Operation(summary = "Finds a specific topping by Id")
 	@Override
-	public ToppingResponse find(@PathVariable Long id) {
+	public ToppingResponse find(@PathVariable Long id) throws ObjectNotFoundException {
 		return super.find(id);
 	}
 

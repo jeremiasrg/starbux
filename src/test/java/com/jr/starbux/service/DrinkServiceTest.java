@@ -1,60 +1,59 @@
 package com.jr.starbux.service;
 
-
 import java.util.List;
-import org.junit.jupiter.api.*;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jr.starbux.entity.Drink;
 
-	
 @SpringBootTest
-public class DrinkServiceTest {
+ class DrinkServiceTest {
 
 	@Autowired
 	private DrinkService service;
-	
 
 	@Test
-	public void shouldReturnMoreThanOneDrink_WhenFindAllDrinks() {
+	void shouldReturnMoreThanOneDrink_WhenFindAllDrinks() {
 		List<Drink> drinks = service.findAll();
 		Assertions.assertTrue(drinks.size() > 1);
 	}
-	
+
 	@Test
-	public void shouldReturnSpecificDrink_WhenFindDrink() throws Exception{
+	void shouldReturnSpecificDrink_WhenFindDrink() throws Exception {
 		Drink rt = service.find(1L);
-		Assertions.assertEquals( rt.getName(),"Black Coffee");
+		Assertions.assertEquals( "Black Coffee", rt.getName());
 	}
-	
+
 	@Test
-	public void shouldUpdateSpecificDrink_WhenUpdateDrink() throws Exception{
+	void shouldUpdateSpecificDrink_WhenUpdateDrink() throws Exception {
 		Drink drink = service.find(1L);
 		String originalName = drink.getName();
 		drink.setName(originalName + "_test");
 		service.update(1L, drink);
 		Drink test = service.find(1L);
-		Assertions.assertEquals( test.getName(), "Black Coffee" + "_test");
+		Assertions.assertEquals(test.getName(), "Black Coffee" + "_test");
 		test.setName(originalName);
 		service.update(1L, test);
 	}
-	
+
 	@Test
-	public void shouldCreateDrink_WhenCreateDrink() throws Exception{
+	void shouldCreateDrink_WhenCreateDrink() throws Exception {
 		Drink drink = new Drink();
-		
+
 		drink.setName("Drink unit test");
 		drink.setPrice(100.00);
 		Drink rt = service.save(drink);
-        Assertions.assertNotNull(rt.getId());
+		Assertions.assertNotNull(rt.getId());
 	}
-	
+
 	@Test
-	public void shouldDeleteDrink_WhenDeleteDrink() throws Exception{
+	void shouldDeleteDrink_WhenDeleteDrink() throws Exception {
 		service.delete(1L);
 		Drink rt = service.find(1L);
-        Assertions.assertEquals(false, (boolean) rt.getActive());
+		Assertions.assertEquals(false, (boolean) rt.getActive());
 		rt.setActive(true);
 		service.update(1L, rt);
 	}

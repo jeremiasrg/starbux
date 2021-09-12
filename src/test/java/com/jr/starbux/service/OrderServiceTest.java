@@ -16,14 +16,14 @@ import com.jr.starbux.entity.OrderDrinkTopping;
 import com.jr.starbux.entity.Topping;
 
 @SpringBootTest
-public class OrderServiceTest {
+class OrderServiceTest {
 
 	@Autowired
 	private OrderService service;
 
 	@Test
 	@org.junit.jupiter.api.Order(1)
-	public void shouldCreateOrder_WhenCreateOrder() throws Exception {
+	void shouldCreateOrder_WhenCreateOrder() throws Exception {
 
 		// Client
 		Client cli = new Client();
@@ -62,20 +62,20 @@ public class OrderServiceTest {
 
 		// save
 		Order rt = service.save(order);
-        Assertions.assertNotNull(rt.getId());
+		Assertions.assertNotNull(rt.getId());
 	}
 
 	@Test
 	@org.junit.jupiter.api.Order(2)
-	public void shouldReturnMoreThanOneOrder_WhenFindAllOrders() {
+	void shouldReturnMoreThanOneOrder_WhenFindAllOrders() {
 		List<Order> orders = service.findAll();
 		Assertions.assertTrue(orders.size() >= 1);
 	}
 
 	@Test
 	@org.junit.jupiter.api.Order(3)
-	public void shouldReturnSpecificOrder_WhenFindOrder() throws Exception {
+	void shouldReturnSpecificOrder_WhenFindOrder() throws Exception {
 		Order rt = service.find(1L);
-		Assertions.assertEquals(rt.getClient().getName(), "Customer unit test");
+		Assertions.assertEquals("Customer unit test", rt.getClient().getName());
 	}
 }

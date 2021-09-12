@@ -1,34 +1,34 @@
 package com.jr.starbux.service;
 
-
 import java.util.List;
 
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jr.starbux.entity.Topping;
 
 @SpringBootTest
-public class ToppingServiceTest {
-	
+class ToppingServiceTest {
+
 	@Autowired
 	private ToppingService service;
 
 	@Test
-	public void shouldReturnMoreThanOneTopping_WhenFindAllToppings() {
+	void shouldReturnMoreThanOneTopping_WhenFindAllToppings() {
 		List<Topping> toppings = service.findAll();
 		Assertions.assertTrue(toppings.size() > 1);
 	}
-	
+
 	@Test
-	public void shouldReturnSpecificTopping_WhenFindTopping() throws Exception{
+	void shouldReturnSpecificTopping_WhenFindTopping() throws Exception {
 		Topping rt = service.find(1L);
-		Assertions.assertEquals(rt.getName(), "Milk");
+		Assertions.assertEquals("Milk", rt.getName());
 	}
-	
+
 	@Test
-	public void shouldUpdateSpecificTopping_WhenUpdateTopping() throws Exception{
+	void shouldUpdateSpecificTopping_WhenUpdateTopping() throws Exception {
 		Topping topping = service.find(1L);
 		String originalName = topping.getName();
 		topping.setName(originalName + "_test");
@@ -38,22 +38,22 @@ public class ToppingServiceTest {
 		test.setName(originalName);
 		service.update(1L, test);
 	}
-	
+
 	@Test
-	public void shouldCreateTopping_WhenCreateTopping() throws Exception{
+	void shouldCreateTopping_WhenCreateTopping() throws Exception {
 		Topping topping = new Topping();
-		
+
 		topping.setName("Topping unit test");
 		topping.setPrice(100.00);
 		Topping rt = service.save(topping);
-        Assertions.assertNotNull(rt.getId());
+		Assertions.assertNotNull(rt.getId());
 	}
-	
+
 	@Test
-	public void shouldDeleteTopping_WhenDeleteTopping() throws Exception{
+	void shouldDeleteTopping_WhenDeleteTopping() throws Exception {
 		service.delete(1L);
 		Topping rt = service.find(1L);
-		Assertions.assertEquals(rt.getActive(), true);
+		Assertions.assertEquals(true, rt.getActive());
 		rt.setActive(true);
 		service.update(1L, rt);
 	}

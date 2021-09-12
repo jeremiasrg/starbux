@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderDrinkToppingRequest {
 	
+	private Long id;
     private OrderDrinkRequest orderDrink;
     private ToppingRequest topping;
 }

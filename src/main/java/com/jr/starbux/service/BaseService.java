@@ -2,16 +2,16 @@ package com.jr.starbux.service;
 
 import java.util.List;
 
+import com.jr.starbux.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.jr.starbux.entity.BaseEntity;
-import com.jr.starbux.generic.Generic;
+import com.jr.starbux.repository.BaseRepository;
 
 @Service
-public abstract class BaseService<T extends BaseEntity, I, R extends JpaRepository<T, I>> {
+public abstract class BaseService<E extends BaseEntity, I, R extends BaseRepository<E, I>> {
 
 	@Autowired
 	protected R repository;
@@ -19,31 +19,33 @@ public abstract class BaseService<T extends BaseEntity, I, R extends JpaReposito
 	@Autowired
 	protected ModelMapper modelMapper;
 
-	public T save(T object) throws Exception {
-
-		T r = repository.save(object);
+	public E save(E object) throws ObjectNotFoundException {
+		E r = repository.save(object);
 		repository.flush();
 		return r;
 	}
 
-	public void update(I id, T entity) throws Exception {
-		T objectDb = repository.findById(id).orElseThrow(() -> new Exception(entity.getClass() + " not found"));
+	public void update(I id, E entity) throws ObjectNotFoundException {
+		E objectDb = repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 
 		modelMapper.map(entity, objectDb);
 		repository.save(objectDb);
 	}
 
-	public List<T> findAll() {
-		return repository.findAll();
+	public List<E> findAll() {
+		return repository.findAllActived();
 	}
 
-	public T find(I id) throws Exception {
-		return repository.findById(id).orElseThrow(() -> new Exception("Object not found"));
-		
+	public E find(I id) throws ObjectNotFoundException {
+		E entity = repository.findByIdActived(id);
+		if (entity == null)
+			throw new ObjectNotFoundException();
+
+		return entity;
 	}
 
-	public void delete(I id) throws Exception {
-		T entity = repository.findById(id).orElseThrow(() -> new Exception("Drink not found"));
+	public void delete(I id) throws ObjectNotFoundException {
+		E entity = repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 
 		repository.save(entity);
 	}

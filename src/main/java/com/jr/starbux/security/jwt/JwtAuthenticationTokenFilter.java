@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.jr.starbux.security.service.UserDetailsService;
+import com.jr.starbux.security.service.MyUserDetailsService;
 import com.jr.starbux.security.utils.JwtUtil;
 
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
@@ -21,10 +21,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	private static final String AUTH_HEADER = "Authorization";
 	private static final String BEARER_PREFIX = "Bearer ";
 
-	private final UserDetailsService userDetailsService;
+	private final MyUserDetailsService userDetailsService;
 	private final JwtUtil jwtUtil;
 
-	public JwtAuthenticationTokenFilter(UserDetailsService userDetailsService, JwtUtil jwtUtil) {
+	public JwtAuthenticationTokenFilter(MyUserDetailsService userDetailsService, JwtUtil jwtUtil) {
 		this.userDetailsService = userDetailsService;
 		this.jwtUtil = jwtUtil;
 	}

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderDrinkRequest {
 
+	private Long id;
     private DrinkRequest drink;
     private List<OrderDrinkToppingRequest> toppings = new ArrayList<>();
 }

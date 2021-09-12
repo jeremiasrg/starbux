@@ -1,78 +1,62 @@
 package com.jr.starbux.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.jr.starbux.entity.BaseEntity;
-import com.jr.starbux.generic.Generic;
+import com.jr.starbux.exceptions.ObjectNotFoundException;
 import com.jr.starbux.service.BaseService;
-import com.jr.starbux.utils.ConverterUtils;
 
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public abstract class BaseViewController<E extends BaseEntity, ID, S extends BaseService, REQ, RES> {
+public abstract class BaseViewController<E extends BaseEntity, I, S extends BaseService, R, P> {
 
 	// (E) - Entity
-	// (ID) - ID
+	// (I) - ID
 	// (S) - Service
-	// (REQ) - Request
-	// (RES) - Response
+	// (R) - Request
+	// (P) - Response
 
 	@Autowired
 	private S service;
 
-	private Class<E> entityType;
-	private Class<RES> responseType;
+	@Autowired
+	protected ModelMapper modelMapper;
 
-	protected BaseViewController(Class<E> entityType, Class<RES> responseType) {
-		this.entityType = entityType;
+
+	private Class<P> responseType;
+
+	protected BaseViewController(Class<P> responseType) {
 		this.responseType = responseType;
 	}
 
 	@GetMapping()
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<RES> findAll() {
+	public List<P> findAll() {
 		log.info("Method findAll called");
 
 		List<E> listEntity = service.findAll();
 
-		List<RES> response = new ArrayList<RES>();
-
-		BeanUtils.copyProperties(listEntity, response);
-
-		return new ConverterUtils(entityType, responseType).copyPropertiesFromList(listEntity, response, responseType);
-
+		return listEntity.stream().map(o -> modelMapper.map(o, this.responseType)).collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-
-	public RES find(@PathVariable("id") ID id) {
+	public P find(@PathVariable("id") I id) throws ObjectNotFoundException {
 		log.info("Method find called");
-		E entity;
-		try {
-			entity = (E) service.find(id);
-			if (entity == null)
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found");
 
-			Generic<RES> gResponse = new Generic<RES>(this.responseType);
-			RES response = gResponse.newInstance();
-			BeanUtils.copyProperties(entity, response);
+		E entity = (E) service.find(id);
 
-			return response;
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-		}
+		return modelMapper.map(entity, this.responseType);
+
 	}
 
 }

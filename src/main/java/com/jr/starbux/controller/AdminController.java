@@ -2,32 +2,42 @@ package com.jr.starbux.controller;
 
 import java.util.List;
 
-import com.jr.starbux.service.DrinkService;
-import com.jr.starbux.service.ToppingService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jr.starbux.entity.Drink;
 import com.jr.starbux.entity.Topping;
+import com.jr.starbux.exceptions.ObjectNotFoundException;
+import com.jr.starbux.request.DrinkRequest;
+import com.jr.starbux.request.ToppingRequest;
+import com.jr.starbux.response.DrinkResponse;
 import com.jr.starbux.response.MostUsedToppingsDrinks;
+import com.jr.starbux.response.ToppingResponse;
 import com.jr.starbux.response.TotalAmountCustomer;
 import com.jr.starbux.service.AdminService;
+import com.jr.starbux.service.DrinkService;
+import com.jr.starbux.service.ToppingService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
-
-import org.springframework.web.server.ResponseStatusException;
 
 @Log4j2
 @Tag(name = "Admin api")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
-	
 
 	@Autowired
 	private AdminService service;
@@ -56,13 +66,13 @@ public class AdminController {
 	@DeleteMapping("drink/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
-	public void deleteDrink(@PathVariable("id") Long id) {
+	public void deleteDrink(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		log.info("Method delete called");
 		try {
 			dService.delete(id);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			throw new ObjectNotFoundException();
 		}
 	}
 
@@ -70,42 +80,50 @@ public class AdminController {
 	@PutMapping("drink/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
-	public void updateDrink(@PathVariable("id") Long id, @RequestBody Drink entity) {
+	public void updateDrink(@PathVariable("id") Long id, @RequestBody DrinkRequest request)
+			throws ObjectNotFoundException {
 		log.info("Method update called");
 		try {
+
+			Drink entity = new Drink();
+
+			BeanUtils.copyProperties(request, entity);
 			dService.update(id, entity);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			throw new ObjectNotFoundException();
 		}
 	}
 
 	@Operation(summary = "Creates a new drink")
 	@PostMapping("/drink")
 	@ResponseStatus(code = HttpStatus.CREATED)
-//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
-	public Drink createDrink(@RequestBody Drink object) {
+	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+	public DrinkResponse createDrink(@RequestBody DrinkRequest request) throws Exception {
 		log.info("Method create called");
 
-		try {
-			return dService.save(object);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-		}
+		Drink entity = new Drink();
+
+		BeanUtils.copyProperties(request, entity);
+		entity = dService.save(entity);
+
+		DrinkResponse response = new DrinkResponse();
+		BeanUtils.copyProperties(entity, response);
+		return response;
+
 	}
 
 	@Operation(summary = "Deletes a specific topping by Id")
 	@DeleteMapping("topping/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
-	public void deleteTopping(@PathVariable("id") Long id) {
+	public void deleteTopping(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		log.info("Method delete called");
 		try {
 			tpService.delete(id);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			throw new ObjectNotFoundException();
 		}
 	}
 
@@ -113,13 +131,17 @@ public class AdminController {
 	@PutMapping("topping/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
-	public void updateTopping(@PathVariable("id") Long id, @RequestBody Topping entity) {
+	public void updateTopping(@PathVariable("id") Long id, @RequestBody ToppingRequest request) throws ObjectNotFoundException {
 		log.info("Method update called");
 		try {
+
+			Topping entity = new Topping();
+
+			BeanUtils.copyProperties(request, entity);
 			tpService.update(id, entity);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			throw new ObjectNotFoundException();
 		}
 	}
 
@@ -127,14 +149,23 @@ public class AdminController {
 	@PostMapping("/topping")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
-	public Topping createTopping(@RequestBody Topping object) {
+	public ToppingResponse createTopping(@RequestBody ToppingRequest request) throws ObjectNotFoundException {
 		log.info("Method create called");
 
 		try {
-			return tpService.save(object);
+
+			Topping entity = new Topping();
+
+			BeanUtils.copyProperties(request, entity);
+			entity = tpService.save(entity);
+
+			ToppingResponse response = new ToppingResponse();
+			BeanUtils.copyProperties(entity, response);
+			return response;
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			throw new ObjectNotFoundException();
 		}
+
 	}
 }

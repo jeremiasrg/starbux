@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.jr.starbux.security.jwt.JwtAuthenticationTokenFilter;
-import com.jr.starbux.security.service.UserDetailsService;
+import com.jr.starbux.security.service.MyUserDetailsService;
 import com.jr.starbux.security.utils.JwtUtil;
 
 @EnableWebSecurity
@@ -21,7 +21,7 @@ import com.jr.starbux.security.utils.JwtUtil;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private MyUserDetailsService userDetailsService;
 
 	@Autowired
 	private JwtUtil jwtUtil;

@@ -63,11 +63,11 @@ public class Order extends BaseEntity implements Serializable {
     private List<OrderDrink> order = new ArrayList<>();
 
     @PrePersist
+    @Override
     void preInsert() {
+        super.preInsert();
         if (this.dateTime == null)
             this.dateTime = Instant.now();
-       
-
     }
 
     @Transient

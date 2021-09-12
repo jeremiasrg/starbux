@@ -11,15 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.jr.starbux.entity.Drink;
 
 @SpringBootTest
-public class DrinkRepositoryTest {
+class DrinkRepositoryTest {
 
     @Autowired
     private DrinkRepository repository;
 
 
     @Test
-    public void shouldReturnMoreThanOneDrink_WhenFindAllDrinks()  {
-        List<Drink> rt = repository.findAllActivedDrinks();
+     void shouldReturnMoreThanOneDrink_WhenFindAllDrinks()  {
+        List<Drink> rt = repository.findAllActived();
         Assertions.assertTrue(rt.size() > 1);
     }
 

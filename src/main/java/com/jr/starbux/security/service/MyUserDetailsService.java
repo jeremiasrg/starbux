@@ -3,6 +3,7 @@ package com.jr.starbux.security.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jr.starbux.security.exception.InvalidPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +18,7 @@ import com.jr.starbux.security.repository.UserRepository;
 import com.jr.starbux.security.request.UserJwtRequest;
 
 @Service
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class MyUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
 	@Autowired
 	private UserRepository repository;
@@ -40,12 +41,12 @@ public class UserDetailsService implements org.springframework.security.core.use
 		return authorities;
 	}
 
-	public UserDetails autenticate(UserJwtRequest userJwtRequest) throws Exception {
+	public UserDetails autenticate(UserJwtRequest userJwtRequest) throws InvalidPasswordException {
 		UserDetails userDetails = loadUserByUsername(userJwtRequest.getEmail());
 		boolean isValidPassword = passwordEncoder.matches(userJwtRequest.getPassword(), userDetails.getPassword());
 		
 		if(isValidPassword) return userDetails;
-		throw new Exception("Invalid password");
+		throw new InvalidPasswordException();
 	}
 
 }
