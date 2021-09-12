@@ -24,11 +24,14 @@ import com.jr.starbux.security.service.MyUserDetailsService;
 import com.jr.starbux.security.service.UserService;
 import com.jr.starbux.security.utils.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
+@Tag(name = "User service")
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
@@ -43,6 +46,7 @@ public class UserController {
 	@Autowired
 	private JwtUtil jwtUtil;
 
+	@Operation(summary = "Creates a new user")
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyRole('ADMINISTRATOR')")
@@ -58,6 +62,7 @@ public class UserController {
 		return userResponse;
 	}
 	
+	@Operation(summary = "Request a new token jwt")
 	@PostMapping("/authenticate")
 	@ResponseStatus(HttpStatus.OK)
 	public UserJwtResponse getAutentication(@RequestBody UserJwtRequest userJwtRequest ) {

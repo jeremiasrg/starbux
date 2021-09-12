@@ -50,14 +50,14 @@ public class AdminController {
 
 	@GetMapping("/totalAmountCustomer")
 	@Operation(summary = "Total amount of the orders per customer.")
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public List<TotalAmountCustomer> totalAmountCustomer(String customerName) {
 		return service.totalAmountCustomer();
 	}
 
 	@GetMapping("/mostUsedToppingsDrinks")
 	@Operation(summary = "Most used toppings for drinks.")
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public List<MostUsedToppingsDrinks> mostUsedToppingsDrinks() {
 		return service.mostUsedToppingsDrinks();
 	}
@@ -65,7 +65,7 @@ public class AdminController {
 	@Operation(summary = "Deletes a specific topping by Id")
 	@DeleteMapping("drink/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public void deleteDrink(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		log.info("Method delete called");
 		try {
@@ -79,7 +79,7 @@ public class AdminController {
 	@Operation(summary = "Updates a drink")
 	@PutMapping("drink/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public void updateDrink(@PathVariable("id") Long id, @RequestBody DrinkRequest request)
 			throws ObjectNotFoundException {
 		log.info("Method update called");
@@ -98,7 +98,7 @@ public class AdminController {
 	@Operation(summary = "Creates a new drink")
 	@PostMapping("/drink")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public DrinkResponse createDrink(@RequestBody DrinkRequest request) throws Exception {
 		log.info("Method create called");
 
@@ -116,7 +116,7 @@ public class AdminController {
 	@Operation(summary = "Deletes a specific topping by Id")
 	@DeleteMapping("topping/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public void deleteTopping(@PathVariable("id") Long id) throws ObjectNotFoundException {
 		log.info("Method delete called");
 		try {
@@ -130,7 +130,7 @@ public class AdminController {
 	@Operation(summary = "Updates a topping")
 	@PutMapping("topping/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public void updateTopping(@PathVariable("id") Long id, @RequestBody ToppingRequest request) throws ObjectNotFoundException {
 		log.info("Method update called");
 		try {
@@ -148,11 +148,9 @@ public class AdminController {
 	@Operation(summary = "Creates a new topping")
 	@PostMapping("/topping")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
+//	@PreAuthorize("hasAnyRole('ADMINISTRATOR')")
 	public ToppingResponse createTopping(@RequestBody ToppingRequest request) throws ObjectNotFoundException {
 		log.info("Method create called");
-
-		try {
 
 			Topping entity = new Topping();
 
@@ -162,10 +160,7 @@ public class AdminController {
 			ToppingResponse response = new ToppingResponse();
 			BeanUtils.copyProperties(entity, response);
 			return response;
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			throw new ObjectNotFoundException();
-		}
+
 
 	}
 }

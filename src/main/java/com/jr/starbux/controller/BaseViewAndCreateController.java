@@ -41,7 +41,7 @@ public abstract class BaseViewAndCreateController<E extends BaseEntity, I, S ext
 		this.responseType = responseType;
 	}
 
-	@PostMapping("/")
+	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public P create(@RequestBody R request) throws Exception {
 		log.info("Method create called");

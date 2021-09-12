@@ -1,4 +1,4 @@
-package com.jr.starbux.config;
+package com.jr.starbux.test;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

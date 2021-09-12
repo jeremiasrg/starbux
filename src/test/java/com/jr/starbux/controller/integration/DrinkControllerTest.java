@@ -1,7 +1,8 @@
 package com.jr.starbux.controller.integration;
 
 
-import com.jr.starbux.entity.Drink;
+
+import com.jr.starbux.response.DrinkResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DrinkControllerTest {
+class DrinkControllerTest {
 
     @Autowired
     private TestRestTemplate template;
@@ -23,13 +24,13 @@ public class DrinkControllerTest {
     void shouldGetAllDrinksAndReturnStatusOK() throws Exception {
         ResponseEntity<ArrayList> response = template.getForEntity("/drink", ArrayList.class);
 
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertTrue(response.getBody().size() > 1);
     }
 
     @Test
     void shouldGetSpecificDrinksAndReturnStatusOK() throws Exception {
-        ResponseEntity<Drink> response = template.getForEntity("/drink/3", Drink.class);
+        ResponseEntity<DrinkResponse> response = template.getForEntity("/drink/3", DrinkResponse.class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals("Mocha", response.getBody().getName());
@@ -37,7 +38,7 @@ public class DrinkControllerTest {
 
     @Test
     void shouldReturn404ErrorWithDrinkDontExist() throws Exception {
-        ResponseEntity<Drink> response = template.getForEntity("/drink/300", Drink.class);
+        ResponseEntity<DrinkResponse> response = template.getForEntity("/drink/300", DrinkResponse.class);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 

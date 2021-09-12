@@ -84,6 +84,6 @@ public class Order extends BaseEntity implements Serializable {
                 .filter(Objects::nonNull)
                 .reduce(0.0, (a, b) -> a + b);
 
-        return (v1 + v2);
+        return (v1 + v2 - this.discount);
     }
 }

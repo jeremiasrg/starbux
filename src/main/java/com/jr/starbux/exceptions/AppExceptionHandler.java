@@ -14,15 +14,6 @@ import java.util.Date;
 @ControllerAdvice
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value={Exception.class})
-    public ResponseEntity<Object> handleAnyException(Exception e, WebRequest request){
-        String errorDescription = e.getLocalizedMessage();
-        if(errorDescription == null) errorDescription = e.toString();
-
-        ErrorMessage error = new ErrorMessage(new Date(), errorDescription);
-        return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @ExceptionHandler(value={ObjectNotFoundException.class})
     public ResponseEntity<Object> handleObjectNotFoundException(Exception e, WebRequest request){
         String errorDescription = e.getLocalizedMessage();

@@ -17,5 +17,7 @@ public class OrderResponse {
 	private ClientResponse client;
 	private String address;
 	private List<OrderDrinkRequest> order;
+	private double discount;
+	private Double total;
 
 }

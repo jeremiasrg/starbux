@@ -16,7 +16,7 @@ class DiscountTest {
         order.setOrder(generateOrderDrinks(1,10));
 
         double rt = Discount.getInstance().calcDiscount(order);
-        Assertions.assertTrue(rt == 0.0);
+        Assertions.assertEquals(0.0, rt);
     }
 
     @Test
@@ -28,7 +28,7 @@ class DiscountTest {
         order.setOrder(generateOrderDrinks(2,10));
 
         double rt = Discount.getInstance().calcDiscount(order);
-        Assertions.assertTrue(rt == 5.0);
+        Assertions.assertEquals(5.0, rt);
     }
 
     @Test
@@ -40,7 +40,7 @@ class DiscountTest {
         order.getOrder().addAll(generateOrderDrinks(2,1.34));
 
         double rt = Discount.getInstance().calcDiscount(order);
-        Assertions.assertTrue(rt == 1.20);
+        Assertions.assertEquals(1.20, rt);
     }
 
 
@@ -59,7 +59,7 @@ class DiscountTest {
         order.setOrder(listOrderDrinks);
 
         double rt = Discount.getInstance().calcDiscount(order);
-        Assertions.assertTrue(rt == 10.0);
+        Assertions.assertEquals(10.0, rt);
 
     }
 

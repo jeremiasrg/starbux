@@ -24,7 +24,7 @@ class DrinkRepositoryTest {
     @Test
     void shouldReturnSpecificActiveDrink()  {
         Drink drink = repository.findByIdActived(2L);
-        Assertions.assertTrue(drink.getId() != null);
+        Assertions.assertNotNull(drink.getId());
     }
 
 

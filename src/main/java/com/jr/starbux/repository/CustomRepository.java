@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import com.jr.starbux.response.TotalAmountCustomer;
 public class CustomRepository {
 
 
-
+    @Autowired
     private EntityManager em;
 
 

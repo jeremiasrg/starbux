@@ -15,21 +15,21 @@ import java.util.ArrayList;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ToppingControllerTest {
+class ToppingControllerTest {
 
     @Autowired
     private TestRestTemplate template;
 
     @Test
-    void shouldGetAllDrinksAndReturnStatusOK() throws Exception {
+    void shouldGetAllToppingAndReturnStatusOK() throws Exception {
         ResponseEntity<ArrayList> response = template.getForEntity("/topping", ArrayList.class);
 
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertTrue(response.getBody().size() > 1);
     }
 
     @Test
-    void shouldGetSpecificDrinksAndReturnStatusOK() throws Exception {
+    void shouldGetSpecificToppingAndReturnStatusOK() throws Exception {
         ResponseEntity<Topping> response = template.getForEntity("/topping/3", Topping.class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -37,7 +37,7 @@ public class ToppingControllerTest {
     }
 
     @Test
-    void shouldReturn404ErrorWithDrinkDontExist() throws Exception {
+    void shouldReturn404ErrorWithToppingDontExist() throws Exception {
         ResponseEntity<Topping> response = template.getForEntity("/topping/300", Topping.class);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

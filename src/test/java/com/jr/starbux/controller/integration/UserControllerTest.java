@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerTest {
+class UserControllerTest {
 
     @Autowired
     private TestRestTemplate template;
@@ -30,9 +30,8 @@ public class UserControllerTest {
         HttpEntity<User> request = new HttpEntity(user);
         ResponseEntity<UserJwtResponse> response = template.postForEntity("/user/authenticate",request, UserJwtResponse.class);
 
-
-        Assertions.assertTrue(response.getBody().getToken() != null);
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Assertions.assertNotNull(response.getBody().getToken());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
 }
