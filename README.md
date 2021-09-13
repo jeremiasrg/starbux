@@ -2,7 +2,7 @@
 
 First of all, I want to say thank you for this opportunity.
 
-Every day I want to improve myself.
+I'm open to hear your feedback, doing that I will improve myself. 
 
 ### Getting started
 
