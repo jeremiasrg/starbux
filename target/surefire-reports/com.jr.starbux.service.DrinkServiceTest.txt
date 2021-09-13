@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.jr.starbux.service.DrinkServiceTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.324 s <<< FAILURE! - in com.jr.starbux.service.DrinkServiceTest
+shouldUpdateSpecificDrink  Time elapsed: 0.165 s  <<< ERROR!
+com.jr.starbux.exceptions.ObjectNotFoundException: Object not found.
+	at com.jr.starbux.service.DrinkServiceTest.shouldUpdateSpecificDrink(DrinkServiceTest.java:22)
+

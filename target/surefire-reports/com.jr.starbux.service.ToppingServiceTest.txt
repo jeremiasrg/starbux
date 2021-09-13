@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.jr.starbux.service.ToppingServiceTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 5.335 s <<< FAILURE! - in com.jr.starbux.service.ToppingServiceTest
+shouldReturnSpecificTopping  Time elapsed: 0.011 s  <<< ERROR!
+com.jr.starbux.exceptions.ObjectNotFoundException: Object not found.
+	at com.jr.starbux.service.ToppingServiceTest.shouldReturnSpecificTopping(ToppingServiceTest.java:30)
+
+shouldUpdateSpecificTopping  Time elapsed: 0.006 s  <<< ERROR!
+com.jr.starbux.exceptions.ObjectNotFoundException: Object not found.
+	at com.jr.starbux.service.ToppingServiceTest.shouldUpdateSpecificTopping(ToppingServiceTest.java:37)
+

@@ -24,7 +24,7 @@ services:
   
   starbux-service:
     container_name: Starbux_Service
-    image: jeremiasrg/starbux:0.0.1-SNAPSHOT
+    image: jeremiasrg/starbux:1.0.0
     ports:
       - 8100:8100
     depends_on:

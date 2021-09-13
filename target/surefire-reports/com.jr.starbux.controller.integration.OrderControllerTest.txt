@@ -1,0 +1,21 @@
+-------------------------------------------------------------------------------
+Test set: com.jr.starbux.controller.integration.OrderControllerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 6.267 s <<< FAILURE! - in com.jr.starbux.controller.integration.OrderControllerTest
+shouldGetAllOrdersAndReturnStatusOK  Time elapsed: 0.107 s  <<< ERROR!
+org.springframework.web.client.RestClientException: 
+Error while extracting response for type [class java.util.ArrayList] and content type [application/json]; nested exception is org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('}' (code 125)): expected a value; nested exception is com.fasterxml.jackson.databind.JsonMappingException: Unexpected character ('}' (code 125)): expected a value
+ at [Source: (PushbackInputStream); line: 1, column: 57542] (through reference chain: java.util.ArrayList[0])
+	at com.jr.starbux.controller.integration.OrderControllerTest.shouldGetAllOrdersAndReturnStatusOK(OrderControllerTest.java:29)
+Caused by: org.springframework.http.converter.HttpMessageNotReadableException: 
+JSON parse error: Unexpected character ('}' (code 125)): expected a value; nested exception is com.fasterxml.jackson.databind.JsonMappingException: Unexpected character ('}' (code 125)): expected a value
+ at [Source: (PushbackInputStream); line: 1, column: 57542] (through reference chain: java.util.ArrayList[0])
+	at com.jr.starbux.controller.integration.OrderControllerTest.shouldGetAllOrdersAndReturnStatusOK(OrderControllerTest.java:29)
+Caused by: com.fasterxml.jackson.databind.JsonMappingException: 
+Unexpected character ('}' (code 125)): expected a value
+ at [Source: (PushbackInputStream); line: 1, column: 57542] (through reference chain: java.util.ArrayList[0])
+	at com.jr.starbux.controller.integration.OrderControllerTest.shouldGetAllOrdersAndReturnStatusOK(OrderControllerTest.java:29)
+Caused by: com.fasterxml.jackson.core.JsonParseException: 
+Unexpected character ('}' (code 125)): expected a value
+ at [Source: (PushbackInputStream); line: 1, column: 57542]
+

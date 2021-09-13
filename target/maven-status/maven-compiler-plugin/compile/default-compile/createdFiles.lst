@@ -55,7 +55,6 @@ com\jr\starbux\security\response\UserJwtResponse$UserJwtResponseBuilder.class
 com\jr\starbux\service\DrinkService.class
 com\jr\starbux\repository\BaseRepository.class
 com\jr\starbux\service\AdminService.class
-com\jr\starbux\config\ModelMapperConfig.class
 com\jr\starbux\entity\Order.class
 com\jr\starbux\request\OrderDrinkRequest.class
 com\jr\starbux\security\request\UserJwtRequest.class
