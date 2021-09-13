@@ -1,18 +1,18 @@
 # starbux
 
-First of all, I want to say thank you for this opportunity.
+First of all, thank you for this opportunity.
 
-I'm open to hear your feedback, doing that I will improve myself. 
+I'm looking forward to hear your feedback. 
 
 ### Getting started
 
-Run docker compose file located on [here](https://github.com/jeremiasrg/starbux/blob/main/docker-compose.yml).
+Run docker compose file located [here](https://github.com/jeremiasrg/starbux/blob/main/docker-compose.yml).
 
 ```docker
 docker-compose up -d
 ```
 
-### Admin user for request jwt token.
+### Admin user to request jwt token.
 
 ```json
 http://localhost:8100/user/authenticate
@@ -38,7 +38,7 @@ http://localhost:8100/v3/api-docs
 ```
 
 ### Test coverage > 70% ✅
-Information by Intellij IDE
+Information extracted by Intellij IDE
 
 ![](imgs/coverage.jpg)
 ### Logging ✅
@@ -55,6 +55,6 @@ Information by Intellij IDE
 ![](imgs/swagger.jpg)
 
 
-Let me know if you have some doubt.
+Please, let me know if you have any doubts.
 
 Regards,
